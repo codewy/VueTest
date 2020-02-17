@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <cpn :book="books" :cmusic="music"></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <p>{{book}}</p>
+      <ul>
+        <li v-for="item in cmusic">{{item}}</li>
+      </ul>
+    </div>
+  </template>
+
+
+  
+
+  <script>
+    //父传子：props
+    const cpn = {
+      template: '#cpn',
+      // props: ['message'],
+      props: {
+      //1.类型限制
+        // message: String,
+
+        //提供一些默认值，以及必传值
+        book:{
+          type: String,
+          default: 'aaaaa',
+          required: true
+        },
+        
+        //类型是对象或者数组时，默认值必须是一个函数
+        cmusic: {
+          type: Array,
+          default() {
+          return []
+        }
+        }
+        
+      },
+    }
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        books: '中学课本',
+        music: ['红日', '思念', '红军']
+      },
+      methods: {},
+      components: {
+        cpn
+      }
+    });
+  </script>
+</body>
+
+</html>
